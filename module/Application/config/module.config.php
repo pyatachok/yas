@@ -20,6 +20,29 @@ return array(
                     ),
                 ),
             ),
+            'teachers' => array(
+                'type' => 'Zend\Mvc\Router\Http\Literal',
+                'options' => array(
+                    'route'    => '/teachers.html',
+                    'defaults' => array(
+                        'controller' => 'Application\Controller\Teachers',
+                        'action'     => 'index',
+                    ),
+                ),
+            ),
+	    'teacher' => array (
+		'type'    => 'Segment',
+		    'options' => array(
+			'route'    => '/teachers/[:teacher].html',
+			'constraints' => array(
+			    'teacher' => '[a-zA-Z][a-zA-Z0-9_-]*',
+			),
+			'defaults' => array(
+			    'controller' => 'Application\Controller\Teachers',
+			    'action'     => 'preview',
+			),
+		    ),
+	    ),
             // The following is a route to simplify getting started creating
             // new controllers and actions without needing to create a new
             // module. Simply drop new controllers in, and you can access them
@@ -73,15 +96,16 @@ return array(
     ),
     'controllers' => array(
         'invokables' => array(
-            'Application\Controller\Index' => 'Application\Controller\IndexController'
+            'Application\Controller\Index' => 'Application\Controller\IndexController',
+            'Application\Controller\Teachers' => 'Application\Controller\TeachersController'
         ),
     ),
     'view_manager' => array(
+        'display_not_found_reason' => true,
+        'display_exceptions'       => true,
 	'strategies' => array(
 	    'ZfcTwigViewStrategy',
 	),
-        'display_not_found_reason' => true,
-        'display_exceptions'       => true,
         'doctype'                  => 'HTML5',
         'not_found_template'       => 'error/404',
         'exception_template'       => 'error/index',
